@@ -33,7 +33,12 @@
 		</InternalInfo>
 		<Properties>
 			<Name>Конфигурация</Name>
-			<Synonym><v8:item><v8:lang>ru</v8:lang><v8:content>Мини-розница</v8:content></v8:item></Synonym>
+			<Synonym>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Мини-розница</v8:content>
+				</v8:item>
+			</Synonym>
 			<Comment/>
 			<NamePrefix/>
 			<ConfigurationExtensionCompatibilityMode>Version8_3_27</ConfigurationExtensionCompatibilityMode>
@@ -229,7 +234,12 @@
 			<DefaultInterface/>
 			<DefaultStyle/>
 			<DefaultLanguage>Language.Русский</DefaultLanguage>
-			<BriefInformation><v8:item><v8:lang>ru</v8:lang><v8:content>Розничная торговля: склады, партии FIFO, цены на дату, отчёты на СКД, Telegram-бот</v8:content></v8:item></BriefInformation>
+			<BriefInformation>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Розничная торговля: склады, партии FIFO, цены на дату, отчёты на СКД, Telegram-бот</v8:content>
+				</v8:item>
+			</BriefInformation>
 			<DetailedInformation/>
 			<Copyright/>
 			<VendorInformationAddress/>
