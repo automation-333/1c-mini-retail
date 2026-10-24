@@ -33,7 +33,7 @@
 		</InternalInfo>
 		<Properties>
 			<Name>Конфигурация</Name>
-			<Synonym/>
+			<Synonym><v8:item><v8:lang>ru</v8:lang><v8:content>Мини-розница</v8:content></v8:item></Synonym>
 			<Comment/>
 			<NamePrefix/>
 			<ConfigurationExtensionCompatibilityMode>Version8_3_27</ConfigurationExtensionCompatibilityMode>
@@ -43,8 +43,8 @@
 			</UsePurposes>
 			<ScriptVariant>Russian</ScriptVariant>
 			<DefaultRoles/>
-			<Vendor/>
-			<Version/>
+			<Vendor>automation-333</Vendor>
+			<Version>2.0.0</Version>
 			<UpdateCatalogAddress/>
 			<IncludeHelpInContents>false</IncludeHelpInContents>
 			<UseManagedFormInOrdinaryApplication>false</UseManagedFormInOrdinaryApplication>
@@ -229,7 +229,7 @@
 			<DefaultInterface/>
 			<DefaultStyle/>
 			<DefaultLanguage>Language.Русский</DefaultLanguage>
-			<BriefInformation/>
+			<BriefInformation><v8:item><v8:lang>ru</v8:lang><v8:content>Розничная торговля: склады, партии FIFO, цены на дату, отчёты на СКД, Telegram-бот</v8:content></v8:item></BriefInformation>
 			<DetailedInformation/>
 			<Copyright/>
 			<VendorInformationAddress/>
@@ -245,15 +245,55 @@
 		</Properties>
 		<ChildObjects>
 			<Language>Русский</Language>
+			<Subsystem>Продажи</Subsystem>
+			<Subsystem>Склад</Subsystem>
+			<Subsystem>Ценообразование</Subsystem>
+			<Subsystem>Администрирование</Subsystem>
+			<CommonModule>ОбщегоНазначенияСервер</CommonModule>
+			<CommonModule>УчетТоваровСервер</CommonModule>
+			<CommonModule>ЦенообразованиеСервер</CommonModule>
+			<CommonModule>ЦенообразованиеВызовСервера</CommonModule>
 			<CommonModule>ТелеграмСервер</CommonModule>
+			<CommonModule>ТелеграмБот</CommonModule>
+			<CommonModule>РегламентныеЗаданияСервер</CommonModule>
+			<CommonModule>ПечатьСервер</CommonModule>
+			<CommonModule>ПечатьВызовСервера</CommonModule>
+			<CommonModule>ЗагрузкаДанныхСервер</CommonModule>
+			<CommonModule>ДатаЗапретаИзменения</CommonModule>
+			<CommonModule>ДемоДанные</CommonModule>
 			<CommonModule>Самопроверка</CommonModule>
+			<CommonModule>ТестыУчетаТоваров</CommonModule>
+			<CommonModule>ТестыЦенИОтчетов</CommonModule>
+			<CommonModule>ТестыИнтеграций</CommonModule>
+			<EventSubscription>ПроверкаДатыЗапретаИзменения</EventSubscription>
+			<ScheduledJob>ОтправкаУведомленийTelegram</ScheduledJob>
+			<ScheduledJob>ОбработкаКомандTelegramБота</ScheduledJob>
+			<ScheduledJob>ЕжедневныйОтчетTelegram</ScheduledJob>
+			<Constant>НазваниеМагазина</Constant>
+			<Constant>ОсновнойСклад</Constant>
+			<Constant>ДатаЗапретаИзменения</Constant>
 			<Constant>ТелеграмТокенБота</Constant>
 			<Constant>ТелеграмЧатИД</Constant>
+			<Constant>ТелеграмПоследнийUpdateID</Constant>
 			<Catalog>Товары</Catalog>
 			<Catalog>Клиенты</Catalog>
-			<Document>ПродажаТовара</Document>
+			<Catalog>Склады</Catalog>
+			<Catalog>Поставщики</Catalog>
+			<Document>УстановкаЦенТоваров</Document>
 			<Document>ПоступлениеТовара</Document>
+			<Document>ПродажаТовара</Document>
+			<Document>ВозвратОтПокупателя</Document>
+			<Document>ПеремещениеТоваров</Document>
+			<Document>ИнвентаризацияТоваров</Document>
+			<Enum>СпособыОплаты</Enum>
+			<Report>ВаловаяПрибыль</Report>
+			<Report>ВедомостьПоОстаткам</Report>
+			<Report>ABCАнализПродаж</Report>
+			<InformationRegister>ЦеныТоваров</InformationRegister>
+			<InformationRegister>ОчередьУведомлений</InformationRegister>
 			<AccumulationRegister>ОстаткиТоваров</AccumulationRegister>
+			<AccumulationRegister>ПартииТоваров</AccumulationRegister>
+			<AccumulationRegister>Продажи</AccumulationRegister>
 		</ChildObjects>
 	</Configuration>
 </MetaDataObject>

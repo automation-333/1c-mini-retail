@@ -3,7 +3,15 @@
 	<AutoTime>CurrentOrLast</AutoTime>
 	<UsePostingMode>Auto</UsePostingMode>
 	<RepostOnWrite>true</RepostOnWrite>
-	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1"/>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<ChildItems>
+			<Button name="ФормаПечатьЧека" id="50">
+				<Type>CommandBarButton</Type>
+				<CommandName>Form.Command.ПечатьЧека</CommandName>
+				<ExtendedTooltip name="ФормаПечатьЧекаРасширеннаяПодсказка" id="51"/>
+			</Button>
+		</ChildItems>
+	</AutoCommandBar>
 	<Events>
 		<Event name="AfterWrite">ПослеЗаписи</Event>
 	</Events>
@@ -28,6 +36,30 @@
 			<ExtendedEditMultipleValues>true</ExtendedEditMultipleValues>
 			<ContextMenu name="КлиентКонтекстноеМеню" id="8"/>
 			<ExtendedTooltip name="КлиентРасширеннаяПодсказка" id="9"/>
+			<Events>
+				<Event name="OnChange">КлиентПриИзменении</Event>
+			</Events>
+		</InputField>
+		<InputField name="ПроцентСкидки" id="47">
+			<DataPath>Объект.ПроцентСкидки</DataPath>
+			<EditMode>EnterOnInput</EditMode>
+			<ContextMenu name="ПроцентСкидкиКонтекстноеМеню" id="48"/>
+			<ExtendedTooltip name="ПроцентСкидкиРасширеннаяПодсказка" id="49"/>
+			<Events>
+				<Event name="OnChange">ПроцентСкидкиПриИзменении</Event>
+			</Events>
+		</InputField>
+		<InputField name="Склад" id="41">
+			<DataPath>Объект.Склад</DataPath>
+			<EditMode>EnterOnInput</EditMode>
+			<ContextMenu name="СкладКонтекстноеМеню" id="42"/>
+			<ExtendedTooltip name="СкладРасширеннаяПодсказка" id="43"/>
+		</InputField>
+		<InputField name="СпособОплаты" id="44">
+			<DataPath>Объект.СпособОплаты</DataPath>
+			<EditMode>EnterOnInput</EditMode>
+			<ContextMenu name="СпособОплатыКонтекстноеМеню" id="45"/>
+			<ExtendedTooltip name="СпособОплатыРасширеннаяПодсказка" id="46"/>
 		</InputField>
 		<Table name="Товары" id="10">
 			<Representation>List</Representation>
@@ -119,6 +151,12 @@
 			<ContextMenu name="СуммаДокументаКонтекстноеМеню" id="39"/>
 			<ExtendedTooltip name="СуммаДокументаРасширеннаяПодсказка" id="40"/>
 		</InputField>
+		<InputField name="Комментарий" id="52">
+			<DataPath>Объект.Комментарий</DataPath>
+			<EditMode>EnterOnInput</EditMode>
+			<ContextMenu name="КомментарийКонтекстноеМеню" id="53"/>
+			<ExtendedTooltip name="КомментарийРасширеннаяПодсказка" id="54"/>
+		</InputField>
 	</ChildItems>
 	<Attributes>
 		<Attribute name="Объект" id="1">
@@ -132,4 +170,21 @@
 			</UseAlways>
 		</Attribute>
 	</Attributes>
+	<Commands>
+		<Command name="ПечатьЧека" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Печать чека</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сформировать кассовый чек</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ПечатьЧека</Action>
+		</Command>
+	</Commands>
 </Form>

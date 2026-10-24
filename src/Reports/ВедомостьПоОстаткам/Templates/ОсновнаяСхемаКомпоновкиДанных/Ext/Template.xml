@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataCompositionSchema xmlns="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcscom="http://v8.1c.ru/8.1/data-composition-system/common" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<dataSource><name>ИсточникДанных1</name><dataSourceType>Local</dataSourceType></dataSource>
+	<dataSet xsi:type="DataSetQuery">
+		<name>НаборДанных1</name>
+		<field xsi:type="DataSetFieldField"><dataPath>Склад</dataPath><field>Склад</field><title xsi:type="v8:LocalStringType"><v8:item><v8:lang>ru</v8:lang><v8:content>Склад</v8:content></v8:item></title></field>
+		<field xsi:type="DataSetFieldField"><dataPath>Товар</dataPath><field>Товар</field><title xsi:type="v8:LocalStringType"><v8:item><v8:lang>ru</v8:lang><v8:content>Товар</v8:content></v8:item></title></field>
+		<field xsi:type="DataSetFieldField"><dataPath>ГруппаТоваров</dataPath><field>ГруппаТоваров</field><title xsi:type="v8:LocalStringType"><v8:item><v8:lang>ru</v8:lang><v8:content>Группа товаров</v8:content></v8:item></title></field>
+		<field xsi:type="DataSetFieldField"><dataPath>Количество</dataPath><field>Количество</field><title xsi:type="v8:LocalStringType"><v8:item><v8:lang>ru</v8:lang><v8:content>Количество</v8:content></v8:item></title><appearance><dcscor:item xsi:type="dcsset:SettingsParameterValue"><dcscor:parameter>Формат</dcscor:parameter><dcscor:value xsi:type="v8:LocalStringType"><v8:item><v8:lang>ru</v8:lang><v8:content>ЧДЦ=0</v8:content></v8:item></dcscor:value></dcscor:item></appearance></field>
+		<field xsi:type="DataSetFieldField"><dataPath>Стоимость</dataPath><field>Стоимость</field><title xsi:type="v8:LocalStringType"><v8:item><v8:lang>ru</v8:lang><v8:content>Стоимость (себестоимость)</v8:content></v8:item></title><appearance><dcscor:item xsi:type="dcsset:SettingsParameterValue"><dcscor:parameter>Формат</dcscor:parameter><dcscor:value xsi:type="v8:LocalStringType"><v8:item><v8:lang>ru</v8:lang><v8:content>ЧДЦ=2</v8:content></v8:item></dcscor:value></dcscor:item></appearance></field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ
+	Партии.Склад КАК Склад,
+	Партии.Товар КАК Товар,
+	СУММА(Партии.СтоимостьОстаток) КАК Стоимость
+ПОМЕСТИТЬ ВТСтоимость
+ИЗ
+	РегистрНакопления.ПартииТоваров.Остатки(, ) КАК Партии
+
+СГРУППИРОВАТЬ ПО
+	Партии.Склад,
+	Партии.Товар
+
+ИНДЕКСИРОВАТЬ ПО
+	Склад,
+	Товар
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ
+	Остатки.Склад КАК Склад,
+	Остатки.Товар КАК Товар,
+	Остатки.Товар.Родитель КАК ГруппаТоваров,
+	Остатки.КоличествоОстаток КАК Количество,
+	ЕСТЬNULL(ВТСтоимость.Стоимость, 0) КАК Стоимость
+ИЗ
+	РегистрНакопления.ОстаткиТоваров.Остатки(, ) КАК Остатки
+		ЛЕВОЕ СОЕДИНЕНИЕ ВТСтоимость КАК ВТСтоимость
+		ПО Остатки.Склад = ВТСтоимость.Склад
+			И Остатки.Товар = ВТСтоимость.Товар</query>
+	</dataSet>
+	
+	<totalField><dataPath>Количество</dataPath><expression>Сумма(Количество)</expression></totalField>
+	<totalField><dataPath>Стоимость</dataPath><expression>Сумма(Стоимость)</expression></totalField>
+	
+	<settingsVariant>
+			<dcsset:name>Основной</dcsset:name>
+			<dcsset:presentation xsi:type="xs:string">Основной</dcsset:presentation>
+			<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+				<dcsset:selection><dcsset:item xsi:type="dcsset:SelectedItemField"><dcsset:field>Количество</dcsset:field></dcsset:item><dcsset:item xsi:type="dcsset:SelectedItemField"><dcsset:field>Стоимость</dcsset:field></dcsset:item></dcsset:selection>
+				<dcsset:outputParameters><dcscor:item xsi:type="dcsset:SettingsParameterValue"><dcscor:parameter>Заголовок</dcscor:parameter><dcscor:value xsi:type="v8:LocalStringType"><v8:item><v8:lang>ru</v8:lang><v8:content>Ведомость по остаткам товаров</v8:content></v8:item></dcscor:value></dcscor:item></dcsset:outputParameters>
+				<dcsset:item xsi:type="dcsset:StructureItemGroup"><dcsset:groupItems><dcsset:item xsi:type="dcsset:GroupItemField"><dcsset:field>Склад</dcsset:field><dcsset:groupType>Items</dcsset:groupType><dcsset:periodAdditionType>None</dcsset:periodAdditionType><dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin><dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd></dcsset:item></dcsset:groupItems><dcsset:order><dcsset:item xsi:type="dcsset:OrderItemAuto"/></dcsset:order><dcsset:selection><dcsset:item xsi:type="dcsset:SelectedItemAuto"/></dcsset:selection><dcsset:item xsi:type="dcsset:StructureItemGroup"><dcsset:groupItems><dcsset:item xsi:type="dcsset:GroupItemField"><dcsset:field>Товар</dcsset:field><dcsset:groupType>Items</dcsset:groupType><dcsset:periodAdditionType>None</dcsset:periodAdditionType><dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin><dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd></dcsset:item></dcsset:groupItems><dcsset:order><dcsset:item xsi:type="dcsset:OrderItemAuto"/></dcsset:order><dcsset:selection><dcsset:item xsi:type="dcsset:SelectedItemAuto"/></dcsset:selection></dcsset:item></dcsset:item>
+			</dcsset:settings>
+	</settingsVariant>
+</DataCompositionSchema>

@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataCompositionSchema xmlns="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcscom="http://v8.1c.ru/8.1/data-composition-system/common" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<dataSource><name>ИсточникДанных1</name><dataSourceType>Local</dataSourceType></dataSource>
+	<dataSet xsi:type="DataSetQuery">
+		<name>НаборДанных1</name>
+		<field xsi:type="DataSetFieldField"><dataPath>Товар</dataPath><field>Товар</field><title xsi:type="v8:LocalStringType"><v8:item><v8:lang>ru</v8:lang><v8:content>Товар</v8:content></v8:item></title></field>
+		<field xsi:type="DataSetFieldField"><dataPath>КлассABC</dataPath><field>КлассABC</field><title xsi:type="v8:LocalStringType"><v8:item><v8:lang>ru</v8:lang><v8:content>Класс ABC</v8:content></v8:item></title></field>
+		<field xsi:type="DataSetFieldField"><dataPath>Выручка</dataPath><field>Выручка</field><title xsi:type="v8:LocalStringType"><v8:item><v8:lang>ru</v8:lang><v8:content>Выручка</v8:content></v8:item></title><appearance><dcscor:item xsi:type="dcsset:SettingsParameterValue"><dcscor:parameter>Формат</dcscor:parameter><dcscor:value xsi:type="v8:LocalStringType"><v8:item><v8:lang>ru</v8:lang><v8:content>ЧДЦ=2</v8:content></v8:item></dcscor:value></dcscor:item></appearance></field>
+		<field xsi:type="DataSetFieldField"><dataPath>ДоляПроцент</dataPath><field>ДоляПроцент</field><title xsi:type="v8:LocalStringType"><v8:item><v8:lang>ru</v8:lang><v8:content>Доля, %</v8:content></v8:item></title><appearance><dcscor:item xsi:type="dcsset:SettingsParameterValue"><dcscor:parameter>Формат</dcscor:parameter><dcscor:value xsi:type="v8:LocalStringType"><v8:item><v8:lang>ru</v8:lang><v8:content>ЧДЦ=2</v8:content></v8:item></dcscor:value></dcscor:item></appearance></field>
+		<field xsi:type="DataSetFieldField"><dataPath>НакопленнаяДоляПроцент</dataPath><field>НакопленнаяДоляПроцент</field><title xsi:type="v8:LocalStringType"><v8:item><v8:lang>ru</v8:lang><v8:content>Накопленная доля, %</v8:content></v8:item></title><appearance><dcscor:item xsi:type="dcsset:SettingsParameterValue"><dcscor:parameter>Формат</dcscor:parameter><dcscor:value xsi:type="v8:LocalStringType"><v8:item><v8:lang>ru</v8:lang><v8:content>ЧДЦ=2</v8:content></v8:item></dcscor:value></dcscor:item></appearance></field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ
+	ПродажиОбороты.Товар КАК Товар,
+	ПродажиОбороты.ВыручкаОборот КАК Выручка
+ПОМЕСТИТЬ ВТВыручка
+ИЗ
+	РегистрНакопления.Продажи.Обороты(&amp;НачалоПериода, &amp;КонецПериода, , ) КАК ПродажиОбороты
+ГДЕ
+	ПродажиОбороты.ВыручкаОборот &gt; 0
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ
+	Текущий.Товар КАК Товар,
+	Текущий.Выручка КАК Выручка,
+	СУММА(Предыдущие.Выручка) КАК НакопленнаяВыручка
+ПОМЕСТИТЬ ВТНакопительно
+ИЗ
+	ВТВыручка КАК Текущий
+		ВНУТРЕННЕЕ СОЕДИНЕНИЕ ВТВыручка КАК Предыдущие
+		ПО (Предыдущие.Выручка &gt; Текущий.Выручка
+				ИЛИ Предыдущие.Выручка = Текущий.Выручка
+					И Предыдущие.Товар.Наименование &lt;= Текущий.Товар.Наименование)
+
+СГРУППИРОВАТЬ ПО
+	Текущий.Товар,
+	Текущий.Выручка
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ
+	Накопительно.Товар КАК Товар,
+	Накопительно.Выручка КАК Выручка,
+	ВЫРАЗИТЬ(Накопительно.Выручка * 100 / Итог.Всего КАК ЧИСЛО(10, 2)) КАК ДоляПроцент,
+	ВЫРАЗИТЬ(Накопительно.НакопленнаяВыручка * 100 / Итог.Всего КАК ЧИСЛО(10, 2)) КАК НакопленнаяДоляПроцент,
+	ВЫБОР
+		КОГДА (Накопительно.НакопленнаяВыручка - Накопительно.Выручка) * 100 / Итог.Всего &lt; 80
+			ТОГДА "A"
+		КОГДА (Накопительно.НакопленнаяВыручка - Накопительно.Выручка) * 100 / Итог.Всего &lt; 95
+			ТОГДА "B"
+		ИНАЧЕ "C"
+	КОНЕЦ КАК КлассABC
+ИЗ
+	ВТНакопительно КАК Накопительно,
+	(ВЫБРАТЬ
+		СУММА(ВТВыручка.Выручка) КАК Всего
+	ИЗ
+		ВТВыручка КАК ВТВыручка) КАК Итог</query>
+	</dataSet>
+	
+	<totalField><dataPath>Выручка</dataPath><expression>Сумма(Выручка)</expression></totalField>
+	<totalField><dataPath>ДоляПроцент</dataPath><expression>Сумма(ДоляПроцент)</expression></totalField>
+	
+	<parameter><name>Период</name><title xsi:type="v8:LocalStringType"><v8:item><v8:lang>ru</v8:lang><v8:content>Период</v8:content></v8:item></title><valueType><v8:Type>v8:StandardPeriod</v8:Type></valueType><value xsi:type="v8:StandardPeriod"><v8:variant xsi:type="v8:StandardPeriodVariant">ThisMonth</v8:variant></value><useRestriction>false</useRestriction></parameter>
+	<parameter><name>НачалоПериода</name><title xsi:type="v8:LocalStringType"><v8:item><v8:lang>ru</v8:lang><v8:content>Начало периода</v8:content></v8:item></title><valueType><v8:Type>xs:dateTime</v8:Type><v8:DateQualifiers><v8:DateFractions>DateTime</v8:DateFractions></v8:DateQualifiers></valueType><value xsi:type="xs:dateTime">0001-01-01T00:00:00</value><useRestriction>true</useRestriction><expression>&amp;Период.ДатаНачала</expression><availableAsField>false</availableAsField></parameter>
+	<parameter><name>КонецПериода</name><title xsi:type="v8:LocalStringType"><v8:item><v8:lang>ru</v8:lang><v8:content>Конец периода</v8:content></v8:item></title><valueType><v8:Type>xs:dateTime</v8:Type><v8:DateQualifiers><v8:DateFractions>DateTime</v8:DateFractions></v8:DateQualifiers></valueType><value xsi:type="xs:dateTime">0001-01-01T00:00:00</value><useRestriction>true</useRestriction><expression>&amp;Период.ДатаОкончания</expression><availableAsField>false</availableAsField></parameter>
+	<settingsVariant>
+			<dcsset:name>Основной</dcsset:name>
+			<dcsset:presentation xsi:type="xs:string">Основной</dcsset:presentation>
+			<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+				<dcsset:selection><dcsset:item xsi:type="dcsset:SelectedItemField"><dcsset:field>Выручка</dcsset:field></dcsset:item><dcsset:item xsi:type="dcsset:SelectedItemField"><dcsset:field>ДоляПроцент</dcsset:field></dcsset:item><dcsset:item xsi:type="dcsset:SelectedItemField"><dcsset:field>НакопленнаяДоляПроцент</dcsset:field></dcsset:item></dcsset:selection>
+				<dcsset:dataParameters><dcscor:item xsi:type="dcsset:SettingsParameterValue"><dcscor:parameter>Период</dcscor:parameter><dcscor:value xsi:type="v8:StandardPeriod"><v8:variant xsi:type="v8:StandardPeriodVariant">ThisMonth</v8:variant></dcscor:value><dcsset:userSettingID>a1b2c3d4-0000-4000-a000-000000000001</dcsset:userSettingID></dcscor:item></dcsset:dataParameters>
+				<dcsset:outputParameters><dcscor:item xsi:type="dcsset:SettingsParameterValue"><dcscor:parameter>Заголовок</dcscor:parameter><dcscor:value xsi:type="v8:LocalStringType"><v8:item><v8:lang>ru</v8:lang><v8:content>ABC-анализ продаж</v8:content></v8:item></dcscor:value></dcscor:item></dcsset:outputParameters>
+				<dcsset:item xsi:type="dcsset:StructureItemGroup"><dcsset:groupItems><dcsset:item xsi:type="dcsset:GroupItemField"><dcsset:field>КлассABC</dcsset:field><dcsset:groupType>Items</dcsset:groupType><dcsset:periodAdditionType>None</dcsset:periodAdditionType><dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin><dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd></dcsset:item></dcsset:groupItems><dcsset:order><dcsset:item xsi:type="dcsset:OrderItemAuto"/></dcsset:order><dcsset:selection><dcsset:item xsi:type="dcsset:SelectedItemAuto"/></dcsset:selection><dcsset:item xsi:type="dcsset:StructureItemGroup"><dcsset:groupItems><dcsset:item xsi:type="dcsset:GroupItemField"><dcsset:field>Товар</dcsset:field><dcsset:groupType>Items</dcsset:groupType><dcsset:periodAdditionType>None</dcsset:periodAdditionType><dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin><dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd></dcsset:item></dcsset:groupItems><dcsset:order><dcsset:item xsi:type="dcsset:OrderItemField"><dcsset:field>Выручка</dcsset:field><dcsset:orderType>Desc</dcsset:orderType></dcsset:item></dcsset:order><dcsset:selection><dcsset:item xsi:type="dcsset:SelectedItemAuto"/></dcsset:selection></dcsset:item></dcsset:item>
+			</dcsset:settings>
+	</settingsVariant>
+</DataCompositionSchema>
