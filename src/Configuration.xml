@@ -245,9 +245,15 @@
 		</Properties>
 		<ChildObjects>
 			<Language>Русский</Language>
+			<CommonModule>ТелеграмСервер</CommonModule>
+			<CommonModule>Самопроверка</CommonModule>
+			<Constant>ТелеграмТокенБота</Constant>
+			<Constant>ТелеграмЧатИД</Constant>
 			<Catalog>Товары</Catalog>
 			<Catalog>Клиенты</Catalog>
 			<Document>ПродажаТовара</Document>
+			<Document>ПоступлениеТовара</Document>
+			<AccumulationRegister>ОстаткиТоваров</AccumulationRegister>
 		</ChildObjects>
 	</Configuration>
 </MetaDataObject>
