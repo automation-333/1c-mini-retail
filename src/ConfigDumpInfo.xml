@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ConfigDumpInfo xmlns="http://v8.1c.ru/8.3/xcf/dumpinfo" xmlns:xen="http://v8.1c.ru/8.3/xcf/enums" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" format="Hierarchical" version="2.20">
+	<ConfigVersions>
+		<Metadata name="Catalog.Клиенты" id="8bda2818-98b4-4714-bab4-6aa0e86ac2db" configVersion="020d887ff264a94eb90455a0a067601d00000000">
+			<Metadata name="Catalog.Клиенты.Attribute.Телефон" id="0c522c75-4f89-4abe-b788-58ca0e5d32ca"/>
+		</Metadata>
+		<Metadata name="Catalog.Товары" id="0db899eb-169a-4067-abc8-9f7c156878ec" configVersion="198df797ec4a41468b91f5610a6ef46c00000000">
+			<Metadata name="Catalog.Товары.Attribute.Цена" id="bdca6d75-b2bd-4a5e-a57f-eca8cf37e57f"/>
+		</Metadata>
+		<Metadata name="Configuration.Конфигурация" id="4b345253-d8ab-4907-a9ba-719aecf31767" configVersion="683e9308f41be44f96b8b601041427f000000000"/>
+		<Metadata name="Document.ПродажаТовара" id="fc8582d7-dff0-41e4-9979-b85f8495edc0" configVersion="38a70e4e06c58a4d895d5de22f129d7100000000">
+			<Metadata name="Document.ПродажаТовара.TabularSection.Товары.Attribute.Количество" id="2569a6a6-b739-414c-ad7f-de94cbbca55e"/>
+			<Metadata name="Document.ПродажаТовара.TabularSection.Товары.Attribute.Товар" id="72c4e2c7-6bd4-42f4-abc3-f537d196d0bf"/>
+			<Metadata name="Document.ПродажаТовара.TabularSection.Товары.Attribute.Цена" id="947c0b54-d848-4618-a6d7-63f8bcc00b53"/>
+			<Metadata name="Document.ПродажаТовара.Attribute.Клиент" id="ad8b654e-76bf-4486-b0b7-127c55464eb5"/>
+			<Metadata name="Document.ПродажаТовара.TabularSection.Товары" id="bf645dfd-40ad-4c8d-947b-e4d6c8535162"/>
+			<Metadata name="Document.ПродажаТовара.Attribute.СуммаДокумента" id="c16b5d53-49cb-4ec7-826b-52c3dabb3553"/>
+			<Metadata name="Document.ПродажаТовара.TabularSection.Товары.Attribute.Сумма" id="c19eba62-418d-4ec2-8456-a1b365ab6029"/>
+		</Metadata>
+		<Metadata name="Document.ПродажаТовара.Form.ФормаДокумента" id="ce7f96c9-f05f-461e-9c2d-11edad78d03c" configVersion="1c06c9e2691fb944b3997fdd349ead4e00000000"/>
+		<Metadata name="Document.ПродажаТовара.Form.ФормаДокумента.Form" id="ce7f96c9-f05f-461e-9c2d-11edad78d03c.0" configVersion="2c40510283646845b129bb0a0c1b2a0000000000"/>
+		<Metadata name="Language.Русский" id="0b889fdf-1db1-4096-b9f1-7105c18a4a33" configVersion="d045fa48abc3f546958819c6b2398fae00000000"/>
+	</ConfigVersions>
+</ConfigDumpInfo>
