@@ -11,13 +11,15 @@
 
 .EXAMPLE
   .\tools\build-and-test.ps1
+  .\tools\build-and-test.ps1 -ClaudeKey <ключ Claude API>   # с реальным запросом к ИИ
   .\tools\build-and-test.ps1 -Platform "C:\Program Files\1cv8\8.3.27.1936\bin\1cv8.exe" -KeepBase
 #>
 param(
     [string]$Platform = '',
     [switch]$KeepBase,
     [string]$TelegramToken = '',
-    [string]$TelegramChat = ''
+    [string]$TelegramChat = '',
+    [string]$ClaudeKey = ''
 )
 
 $ErrorActionPreference = 'Stop'
@@ -69,6 +71,7 @@ if ($ok) {
     Remove-Item $out, $junit -ErrorAction SilentlyContinue
     $c = "autotest;out=$out;junit=$junit"
     if ($TelegramToken) { $c += ";token=$TelegramToken;chat=$TelegramChat" }
+    if ($ClaudeKey) { $c += ";claude=$ClaudeKey" }
     $p = Start-Process -FilePath $Platform -ArgumentList @('ENTERPRISE', '/F', "`"$ib`"", '/DisableStartupDialogs', '/DisableStartupMessages', '/C', "`"$c`"") -PassThru
     if (-not $p.WaitForExit(600000)) { $p.Kill(); throw 'Автотесты не завершились за 10 минут' }
     if (Test-Path $out) {

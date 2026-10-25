@@ -275,6 +275,12 @@
 			<CommonModule>ТестыУчетаТоваров</CommonModule>
 			<CommonModule>ТестыЦенИОтчетов</CommonModule>
 			<CommonModule>ТестыИнтеграций</CommonModule>
+			<CommonModule>ИИАссистентСервер</CommonModule>
+			<CommonModule>ПрогнозЗапасовСервер</CommonModule>
+			<CommonModule>ДиагностикаСервер</CommonModule>
+			<CommonModule>ВебAPIСервер</CommonModule>
+			<CommonModule>ТестыНовыхВозможностей</CommonModule>
+			<HTTPService>ВебAPI</HTTPService>
 			<EventSubscription>ПроверкаДатыЗапретаИзменения</EventSubscription>
 			<ScheduledJob>ОтправкаУведомленийTelegram</ScheduledJob>
 			<ScheduledJob>ОбработкаКомандTelegramБота</ScheduledJob>
@@ -285,6 +291,9 @@
 			<Constant>ТелеграмТокенБота</Constant>
 			<Constant>ТелеграмЧатИД</Constant>
 			<Constant>ТелеграмПоследнийUpdateID</Constant>
+			<Constant>ClaudeКлючAPI</Constant>
+			<Constant>ClaudeМодель</Constant>
+			<Constant>ВебAPIКлюч</Constant>
 			<Catalog>Товары</Catalog>
 			<Catalog>Клиенты</Catalog>
 			<Catalog>Склады</Catalog>

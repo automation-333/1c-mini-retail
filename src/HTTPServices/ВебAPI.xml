@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MetaDataObject xmlns="http://v8.1c.ru/8.3/MDClasses" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:cmi="http://v8.1c.ru/8.2/managed-application/cmi" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xen="http://v8.1c.ru/8.3/xcf/enums" xmlns:xpr="http://v8.1c.ru/8.3/xcf/predef" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.20">
+	<HTTPService uuid="99e065b1-7d37-4322-bf8d-1d736ae579cf">
+		<Properties>
+			<Name>ВебAPI</Name>
+			<Synonym>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>REST API магазина</v8:content>
+				</v8:item>
+			</Synonym>
+			<Comment/>
+			<RootURL>api</RootURL>
+			<ReuseSessions>AutoUse</ReuseSessions>
+			<SessionMaxAge>20</SessionMaxAge>
+		</Properties>
+		<ChildObjects>
+			<URLTemplate uuid="cee0d362-b290-4552-b457-dfb3fe4e13ba">
+				<Properties>
+					<Name>Здоровье</Name>
+					<Synonym/>
+					<Comment/>
+					<Template>/v1/health</Template>
+				</Properties>
+				<ChildObjects>
+					<Method uuid="08a444cf-c000-4923-9fa5-ca59061f77e7">
+						<Properties>
+							<Name>GET</Name>
+							<Synonym/>
+							<Comment/>
+							<HTTPMethod>GET</HTTPMethod>
+							<Handler>ЗдоровьеGET</Handler>
+						</Properties>
+					</Method>
+				</ChildObjects>
+			</URLTemplate>
+			<URLTemplate uuid="bbc36b1a-11bc-447a-b0c2-fe7e17cad2ba">
+				<Properties>
+					<Name>Остатки</Name>
+					<Synonym/>
+					<Comment/>
+					<Template>/v1/stock</Template>
+				</Properties>
+				<ChildObjects>
+					<Method uuid="42a82db9-2134-43b4-a2e6-28aeddf95928">
+						<Properties>
+							<Name>GET</Name>
+							<Synonym/>
+							<Comment/>
+							<HTTPMethod>GET</HTTPMethod>
+							<Handler>ОстаткиGET</Handler>
+						</Properties>
+					</Method>
+				</ChildObjects>
+			</URLTemplate>
+			<URLTemplate uuid="fa865891-c005-47ba-a821-e071c18bf4b4">
+				<Properties>
+					<Name>Цены</Name>
+					<Synonym/>
+					<Comment/>
+					<Template>/v1/prices</Template>
+				</Properties>
+				<ChildObjects>
+					<Method uuid="a148623b-1f6b-4cf9-bcff-c027e15e66f4">
+						<Properties>
+							<Name>GET</Name>
+							<Synonym/>
+							<Comment/>
+							<HTTPMethod>GET</HTTPMethod>
+							<Handler>ЦеныGET</Handler>
+						</Properties>
+					</Method>
+				</ChildObjects>
+			</URLTemplate>
+			<URLTemplate uuid="e0f42224-9193-4c15-acf4-e4b1859f2506">
+				<Properties>
+					<Name>Прогноз</Name>
+					<Synonym/>
+					<Comment/>
+					<Template>/v1/forecast</Template>
+				</Properties>
+				<ChildObjects>
+					<Method uuid="68166a39-594b-4dc7-ace4-899c74c4dcae">
+						<Properties>
+							<Name>GET</Name>
+							<Synonym/>
+							<Comment/>
+							<HTTPMethod>GET</HTTPMethod>
+							<Handler>ПрогнозGET</Handler>
+						</Properties>
+					</Method>
+				</ChildObjects>
+			</URLTemplate>
+		</ChildObjects>
+	</HTTPService>
+</MetaDataObject>
